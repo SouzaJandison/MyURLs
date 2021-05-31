@@ -1,6 +1,6 @@
 import {
   Entity,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
@@ -8,7 +8,7 @@ import {
 
 @Entity('users')
 class User {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -17,17 +17,17 @@ class User {
   @Column()
   email: string;
 
-  @Column('avata_user_url')
-  avataUserUrl: string;
+  @Column()
+  avata_user_url: string;
 
-  @Column('password_hash')
-  passwordHash: string;
+  @Column()
+  password_hash: string;
 
-  @CreateDateColumn('created_at')
-  createdAt: string;
+  @CreateDateColumn()
+  created_at: Date;
 
-  @UpdateDateColumn('updated_at')
-  updatedAt: string;
+  @UpdateDateColumn()
+  updated_at: Date;
 }
 
 export { User };
