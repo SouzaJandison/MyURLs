@@ -67,6 +67,7 @@
         "newlinesBetween": "always",
         "groups": [
           "/^express/",
+          "/^typeorm/",
           "module",
           ["parent", "sibling", "index"]
         ],
