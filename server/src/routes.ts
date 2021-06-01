@@ -1,9 +1,15 @@
 import { Router } from 'express';
 
-const routes = Router();
+import multer from 'multer';
 
-routes.get('/', (request, response) => {
-  return response.json({ message: 'Hello World!!!' });
-});
+import { UsersController } from './app/controllers/UsersController';
+import { uploadsConfig } from './config/uploads';
+
+const routes = Router();
+const uploads = multer(uploadsConfig.multer);
+
+const usersController = new UsersController();
+
+routes.post('/users', uploads.single('avatarUser'), usersController.create);
 
 export { routes };

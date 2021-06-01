@@ -3,6 +3,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 
 import './database';
+import { uploadsConfig } from './config/uploads';
 import { routes } from './routes';
 import { AppError } from './shared/errors/AppError';
 
@@ -10,6 +11,8 @@ const app = express();
 
 app.use(express.json());
 app.use(routes);
+
+app.use('/files', express.static(uploadsConfig.uploadsFolder));
 
 app.use(
   (
