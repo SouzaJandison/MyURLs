@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 import { UsersService } from '../services/UsersService';
-import { render } from '../views/templates/userCreate';
+import { render } from '../views/templates/users/userCreate';
 
 class UsersController {
   async create(request: Request, response: Response): Promise<Response> {
