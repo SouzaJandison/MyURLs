@@ -1,9 +1,11 @@
 import { getCustomRepository, Repository } from 'typeorm';
 
 import { hashSync } from 'bcryptjs';
+import * as path from 'path';
 
 import { AppError } from '../../shared/errors/AppError';
 import { User } from '../models/User';
+import { SendMail } from '../providers/SendMail';
 import { UsersRepository } from '../repositories/UsersRepository';
 import { schemaUserCreate } from '../validations/users/userCreate';
 
@@ -12,6 +14,16 @@ interface IUserCreate {
   email: string;
   avatarUser: string;
   password: string;
+}
+
+interface IUserSendEmail {
+  username: string;
+  email: string;
+  id: string;
+}
+
+interface ISendEmailResponse {
+  message: string;
 }
 
 class UsersService {
@@ -61,6 +73,55 @@ class UsersService {
     await this.usersRepository.save(user);
 
     return user;
+  }
+
+  async sendVerificationEmail({
+    username,
+    email,
+    id,
+  }: IUserSendEmail): Promise<void> {
+    const sendMail = new SendMail();
+
+    const variables = {
+      username,
+      title: '[MyURLs] Por favor verifique seu endereço de email.',
+      email,
+      id,
+      link: process.env.URL_MAIL,
+    };
+
+    const verifyPath = path.resolve(
+      __dirname,
+      '..',
+      'views',
+      'email',
+      'verifyMail.hbs',
+    );
+
+    await sendMail.execute(variables, verifyPath);
+  }
+
+  async emailConfirmation(id: string): Promise<ISendEmailResponse> {
+    const user = await this.usersRepository.findOne({ id });
+
+    if (!user) {
+      throw new AppError('User does not exists');
+    }
+
+    if (user.email_verification) {
+      return {
+        message: `${user.email} is already verified.`,
+      };
+    }
+
+    await this.usersRepository.save({
+      ...user,
+      email_verification: true,
+    });
+
+    return {
+      message: 'successful email verification',
+    };
   }
 }
 

@@ -23,6 +23,9 @@ class User {
   @Column()
   password_hash: string;
 
+  @Column()
+  email_verification: boolean;
+
   @CreateDateColumn()
   created_at: Date;
 

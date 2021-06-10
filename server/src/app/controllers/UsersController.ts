@@ -17,7 +17,22 @@ class UsersController {
       password,
     });
 
+    await usersService.sendVerificationEmail({
+      username,
+      email,
+      id: user.id,
+    });
+
     return response.status(201).json(render(user));
+  }
+
+  async verifyEmail(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const usersService = new UsersService();
+    const { message } = await usersService.emailConfirmation(id);
+
+    return response.json({ message });
   }
 }
 

@@ -7,5 +7,9 @@ declare namespace NodeJS {
     POSTGRES_PASS: string;
     POSTGRES_NAME: string;
     STORAGE_DRIVER: string;
+    MAILER_MAIL: string;
+    MAILER_USER: string;
+    MAILER_PASS: string;
+    URL_MAIL: string;
   }
 }

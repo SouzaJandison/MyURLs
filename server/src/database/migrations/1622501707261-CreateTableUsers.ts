@@ -33,6 +33,11 @@ export class CreateTableUsers1622501707261 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'email_verification',
+            type: 'boolean',
+            default: false,
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

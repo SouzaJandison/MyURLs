@@ -13,6 +13,7 @@ const usersController = new UsersController();
 const bookmarksController = new BookmarksController();
 
 routes.post('/users', uploads.single('avatarUser'), usersController.create);
+routes.get('/users/verify/email/:id', usersController.verifyEmail);
 
 routes.post('/bookmarks', bookmarksController.create);
 
