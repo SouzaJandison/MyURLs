@@ -1,10 +1,12 @@
 import { getCustomRepository, Repository } from 'typeorm';
 
-import { hashSync } from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import * as path from 'path';
 
+import authConfig from '../../config/auth';
 import { AppError } from '../../shared/errors/AppError';
 import { User } from '../models/User';
+import { BCryptHash } from '../providers/BCryptHash';
 import { SendMail } from '../providers/SendMail';
 import { UsersRepository } from '../repositories/UsersRepository';
 import { schemaUserCreate } from '../validations/users/userCreate';
@@ -26,11 +28,47 @@ interface ISendEmailResponse {
   message: string;
 }
 
+interface ISessionResponse {
+  user: User;
+  token: string;
+}
+
 class UsersService {
   private usersRepository: Repository<User>;
 
   constructor() {
     this.usersRepository = getCustomRepository(UsersRepository);
+  }
+
+  async index(email: string, password: string): Promise<ISessionResponse> {
+    const user = await this.usersRepository.findOne({ email });
+
+    if (!user) {
+      throw new AppError('Incorrect email/password combination.', 401);
+    }
+
+    const hashProvider = new BCryptHash();
+
+    const isValidPassword = await hashProvider.compareHash(
+      password,
+      user.password_hash,
+    );
+
+    if (!isValidPassword) {
+      throw new AppError('Incorrect email/password combination.', 401);
+    }
+
+    const { secret, expiresIn } = authConfig.jwt;
+
+    const token = jwt.sign({}, secret, {
+      subject: user.id,
+      expiresIn,
+    });
+
+    return {
+      user,
+      token,
+    };
   }
 
   async create({
@@ -61,7 +99,9 @@ class UsersService {
       throw new AppError('Email address already used.');
     }
 
-    const hashPassword = hashSync(password, 8);
+    const hashProvider = new BCryptHash();
+
+    const hashPassword = await hashProvider.generateHash(password);
 
     const user = this.usersRepository.create({
       username,

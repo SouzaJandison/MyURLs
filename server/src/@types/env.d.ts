@@ -2,6 +2,7 @@ declare namespace NodeJS {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   export interface ProcessEnv {
     APP_FILES: string;
+    APP_SECRET: string;
     POSTGRES_HOST: string;
     POSTGRES_USER: string;
     POSTGRES_PASS: string;
