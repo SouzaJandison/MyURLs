@@ -29,6 +29,31 @@ class BookmarksController {
 
     return response.json(bookmarkRender.renderMany(bookmarks));
   }
+
+  async delete(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const bookmarkService = new BookmarksService();
+
+    await bookmarkService.delete(id);
+
+    return response.json({ message: 'Successful remove bookmark' });
+  }
+
+  async update(request: Request, response: Response): Promise<Response> {
+    const { name, url } = request.body;
+    const { id } = request.params;
+
+    const bookmarkService = new BookmarksService();
+
+    await bookmarkService.update({
+      id,
+      name,
+      url,
+    });
+
+    return response.json({ message: 'Successful update bookmark' });
+  }
 }
 
 export { BookmarksController };

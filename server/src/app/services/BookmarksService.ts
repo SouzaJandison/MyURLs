@@ -14,6 +14,12 @@ interface IBookmarkCreate {
   folder_id?: string;
 }
 
+interface IBookmarkUpdate {
+  id: string;
+  name: string;
+  url: string;
+}
+
 class BookmarksService {
   private bookmarksRepository: Repository<Bookmark>;
 
@@ -68,6 +74,31 @@ class BookmarksService {
     }
 
     return user.bookmarks;
+  }
+
+  async delete(id: string): Promise<void> {
+    const bookmark = await this.bookmarksRepository.findOne({ id });
+
+    if (!bookmark) {
+      throw new AppError('Bookmark not found');
+    }
+
+    await this.bookmarksRepository.remove(bookmark);
+  }
+
+  async update({ id, name, url }: IBookmarkUpdate): Promise<void> {
+    const { affected } = await this.bookmarksRepository
+      .createQueryBuilder()
+      .update(Bookmark)
+      .set({ name, url })
+      .where('id = :id', { id })
+      .execute();
+
+    if (affected === 0) {
+      throw new AppError(
+        'it was not possible to perform the update the bookmark',
+      );
+    }
   }
 }
 

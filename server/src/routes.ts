@@ -21,5 +21,7 @@ routes.get('/users/verify/email/:id', usersController.verifyEmail);
 
 routes.post('/bookmarks', authMiddlewares, bookmarksController.create);
 routes.get('/bookmarks', authMiddlewares, bookmarksController.show);
+routes.delete('/bookmarks/:id', authMiddlewares, bookmarksController.delete);
+routes.put('/bookmarks/:id', authMiddlewares, bookmarksController.update);
 
 export { routes };
