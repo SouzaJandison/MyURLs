@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 import { UsersService } from '../services/UsersService';
-import { render } from '../views/templates/users/userCreate';
+import { userRender } from '../views/templates/userRender';
 
 class SessionController {
   async index(request: Request, response: Response): Promise<Response> {
@@ -10,7 +10,7 @@ class SessionController {
 
     const { user, token } = await userService.index(email, password);
     return response.json({
-      user: render(user),
+      user: userRender.render(user),
       token,
     });
   }
