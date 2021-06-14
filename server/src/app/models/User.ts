@@ -4,7 +4,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+
+import { Bookmark } from './Bookmark';
 
 @Entity('users')
 class User {
@@ -25,6 +28,9 @@ class User {
 
   @Column()
   email_verification: boolean;
+
+  @OneToMany(() => Bookmark, bookmark => bookmark.user)
+  bookmarks: Bookmark[];
 
   @CreateDateColumn()
   created_at: Date;

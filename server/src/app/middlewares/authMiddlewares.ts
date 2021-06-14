@@ -8,7 +8,7 @@ import { AppError } from '../../shared/errors/AppError';
 interface ITokenPayload {
   iat: number;
   exp: number;
-  sub: string;
+  id: string;
 }
 
 export function authMiddlewares(
@@ -16,21 +16,21 @@ export function authMiddlewares(
   _: Response,
   next: NextFunction,
 ): void {
-  const authHeader = request.headers.authorization;
+  const { authorization } = request.headers;
 
-  if (!authHeader) {
+  if (!authorization) {
     throw new AppError('JWT token is missing', 401);
   }
 
-  const [, token] = authHeader.split(' ');
+  const token = authorization.replace('Bearer', '').trim();
 
   try {
     const decoded = jwt.verify(token, authConfig.jwt.secret);
 
-    const { sub } = decoded as ITokenPayload;
+    const { id } = decoded as ITokenPayload;
 
     request.user = {
-      id: sub,
+      id,
     };
 
     return next();

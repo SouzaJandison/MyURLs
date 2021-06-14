@@ -21,8 +21,8 @@ class Bookmark {
   @Column()
   url: string;
 
+  @ManyToOne(() => User, user => user.bookmarks)
   @JoinColumn({ name: 'user_id' })
-  @ManyToOne(() => User)
   user: User;
 
   @Column()
