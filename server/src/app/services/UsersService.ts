@@ -9,12 +9,11 @@ import { User } from '../models/User';
 import { BCryptHash } from '../providers/BCryptHash';
 import { SendMail } from '../providers/SendMail';
 import { UsersRepository } from '../repositories/UsersRepository';
-import { schemaUserCreate } from '../validations/users/userCreate';
 
 interface IUserCreate {
   username: string;
   email: string;
-  avatarUser: string;
+  avatarUserUrl: string;
   password: string;
 }
 
@@ -73,25 +72,9 @@ class UsersService {
   async create({
     username,
     email,
-    avatarUser,
+    avatarUserUrl,
     password,
   }: IUserCreate): Promise<User> {
-    const avatarUserUrl = process.env.APP_FILES + avatarUser;
-
-    try {
-      await schemaUserCreate.validate(
-        {
-          username,
-          email,
-          avatarUserUrl,
-          password,
-        },
-        { abortEarly: false },
-      );
-    } catch (error) {
-      throw new AppError(error);
-    }
-
     const checkUserExists = await this.usersRepository.findOne({ email });
 
     if (checkUserExists) {

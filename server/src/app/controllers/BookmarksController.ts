@@ -1,12 +1,31 @@
 import { Request, Response } from 'express';
 
+import { AppError } from '../../shared/errors/AppError';
 import { BookmarksService } from '../services/BookmarksService';
+import {
+  schemaBookmarkCreate,
+  schemaBookmarkUpdate,
+} from '../validations/bookmarkSchema';
 import { bookmarkRender } from '../views/templates/bookmarkRender';
 
 class BookmarksController {
   async create(request: Request, response: Response): Promise<Response> {
     const { name, url, folder_id } = request.body;
     const { id } = request.user;
+
+    try {
+      await schemaBookmarkCreate.validate(
+        {
+          name,
+          url,
+          user_id: id,
+          folder_id,
+        },
+        { abortEarly: false },
+      );
+    } catch (error) {
+      throw new AppError(error);
+    }
 
     const bookmarkService = new BookmarksService();
 
@@ -43,6 +62,19 @@ class BookmarksController {
   async update(request: Request, response: Response): Promise<Response> {
     const { name, url } = request.body;
     const { id } = request.params;
+
+    try {
+      await schemaBookmarkUpdate.validate(
+        {
+          id,
+          name,
+          url,
+        },
+        { abortEarly: false },
+      );
+    } catch (error) {
+      throw new AppError(error);
+    }
 
     const bookmarkService = new BookmarksService();
 

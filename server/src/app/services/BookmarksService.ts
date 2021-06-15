@@ -5,7 +5,6 @@ import { Bookmark } from '../models/Bookmark';
 import { User } from '../models/User';
 import { BookmarksRepository } from '../repositories/BookmarksRepository';
 import { UsersRepository } from '../repositories/UsersRepository';
-import { schemaBookmarkCreate } from '../validations/bookmarks/bookmarkCreate';
 
 interface IBookmarkCreate {
   name: string;
@@ -36,29 +35,14 @@ class BookmarksService {
     user_id,
     folder_id,
   }: IBookmarkCreate): Promise<Bookmark> {
-    try {
-      await schemaBookmarkCreate.validate(
-        {
-          name,
-          url,
-          user_id,
-          folder_id,
-        },
-        { abortEarly: false },
-      );
-    } catch (error) {
-      throw new AppError(error);
-    }
-
     const bookmark = this.bookmarksRepository.create({
       name,
       url,
       user_id,
+      folder_id,
     });
 
     await this.bookmarksRepository.save(bookmark);
-
-    console.log(bookmark);
 
     return bookmark;
   }
