@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Logon from './views/Logon';
 
-export default function Routes() {
+export default function Routes(): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>

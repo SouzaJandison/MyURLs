@@ -1,3 +1,195 @@
-body {
-  background: #dedede;
+.container {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: var(--blue);
+}
+
+form {
+  max-width: 42.5rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 4rem 6rem 2rem;
+
+  background: var(--white);
+
+  border-radius: 0.5rem;
+}
+
+form h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+
+  color: var(--gray);
+
+  padding-bottom: 1rem;
+}
+
+form .label {
+  width: 100%;
+
+  font-weight: 700;
+
+  color: var(--gray);
+  opacity: 0.8;
+
+  padding: 0.7rem 0;
+}
+
+form input {
+  width: 100%;
+  height: 3rem;
+
+  font-size: 1.2rem;
+  color: var(--gray);
+
+  padding: 0 1rem;
+
+  border: 1px solid var(--light-gray);
+  border-radius: 8px;
+}
+
+form input:focus {
+  outline: none;
+  border: 2px solid rgba(0, 118, 206, 0.5);
+}
+
+form button {
+  width: 100%;
+  height: 3rem;
+
+  background: var(--blue);
+  opacity: 0.8;
+  color: var(--white);
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  border: 0;
+  border-radius: 0.5rem;
+
+  margin: 1rem 0 1.5rem;
+
+  cursor: pointer;
+}
+
+form button:hover {
+  filter: brightness(80%);
+}
+
+form .line {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 0.875rem;
+  font-weight: 700;
+
+  color: var(--gray);
+  opacity: 0.6;
+}
+
+form .line::before, .line::after {
+  width: 50%;
+  height: 2px;
+
+  background: var(--gray);
+  opacity: 0.6;
+}
+
+form .line::before {
+  content: '';
+  margin-right: 0.5rem;
+
+}
+
+form .line::after {
+  content: '';
+  margin-left: 0.5rem;
+}
+
+form .auth-buttons {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(2, 2fr);
+  grid-template-rows: 2fr;
+  gap: 1rem;
+
+  margin: 1rem 0 2rem;
+}
+
+form .auth-buttons a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.5rem;
+  text-decoration: none;
+
+  padding: 1rem;
+
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 5px 0 rgb(0 0 0 / 20%);
+
+  transition: filter 0.2s;
+}
+
+form .auth-buttons a:hover {
+  filter: brightness(90%);
+}
+
+form .auth-buttons a svg {
+  margin-right: 0.5rem;
+}
+
+form .auth-buttons .btn-face {
+  background: #3b5998;
+  color: var(--white);
+}
+
+form .auth-buttons .btn-google {
+  background: var(--white);
+  color: var(--gray);
+}
+
+form .register {
+  color: var(--gray);
+  font-weight: 700;
+}
+
+.back-link {
+  margin-left: 0.5rem;
+
+  font-size: 1rem;
+  font-weight: 100;
+
+  color: var(--gray);
+  opacity: 0.8;
+
+  transition: color 2s;
+}
+
+.back-link:hover {
+  color: var(--blue);
+  opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+  form {
+    padding: 2rem 1rem;
+  }
+
+  form .auth-buttons {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 2fr);
+  }
 }
