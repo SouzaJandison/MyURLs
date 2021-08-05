@@ -1,0 +1,18 @@
+section {
+  margin: auto 6rem auto 0;
+}
+
+.logo {
+  font-size: 4rem;
+  font-weight: 900;
+
+  color: var(--blue);
+  opacity: 0.8;
+  text-shadow: 2px 2px 4px var(--gray);
+}
+
+@media (max-width: 600px) {
+  section {
+    margin: 2rem auto 0;
+  }
+}

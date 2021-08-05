@@ -1,0 +1,6 @@
+.register {
+  color: var(--gray);
+  font-weight: 700;
+
+  margin-top: 1.5rem;
+}
