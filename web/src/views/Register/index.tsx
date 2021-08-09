@@ -18,7 +18,7 @@ export function Register(): JSX.Element {
         </Link>
 
         <section>
-          <img src={logo} alt="MyURLs" />
+          <img src={logo} alt="MyURLs" width="250" height="106" />
         </section>
 
         <form>

@@ -1,0 +1,87 @@
+.home-container {
+  width: 100%;
+  max-width: 1280px;
+
+  padding: 0 1rem;
+  margin: auto;
+}
+
+.home-container header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 6.5rem;
+
+}
+
+.home-container header .profile {
+  display: flex;
+  align-items: center;
+}
+
+.home-container header .profile span {
+  margin-right: 1rem;
+}
+
+.home-container main {
+  display: flex;
+  justify-content: space-between;
+}
+
+.home-container main section.folder {
+  width: 20rem;
+  height: calc(100vh - 6.5rem);
+
+  overflow: auto;
+}
+
+.home-container main section.folder  ul li {
+  padding: 0.25rem 0;
+
+  color: #5a5a5a;
+}
+
+.home-container main section.folder ul li .folder-itens {
+  display: flex;
+  align-items: center;
+}
+
+.home-container main section.folder ul li .sub-folder {
+  margin-left: 2rem;
+}
+
+.home-container main section.folder ul li .sub-folder-itens {
+  display: flex;
+  align-items: center;
+}
+
+.home-container main section ul li svg {
+  margin-right: 0.5rem;
+}
+
+.home-container main section.home-content {
+  width: 100%;
+
+  margin: 0 3rem 2rem;
+  padding: 1.5rem;
+
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 5px 0 rgb(0 0 0 / 20%);
+
+  background: var(--white);
+}
+
+.home-container main section.home-content>ul .url-itens {
+  display: flex;
+  align-items: center;
+
+  padding: 0.25rem 0;
+}
+
+.home-container main section.home-content>ul .url-itens a {
+  text-decoration: none;
+  color: #5a5a5a;
+}
+
+

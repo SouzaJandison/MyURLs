@@ -1,4 +1,4 @@
-section {
+.content section {
   margin: auto 6rem auto 0;
 }
 
@@ -12,7 +12,7 @@ section {
 }
 
 @media (max-width: 600px) {
-  section {
+  .content section {
     margin: 2rem auto 0;
   }
 }
