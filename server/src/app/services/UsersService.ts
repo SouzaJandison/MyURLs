@@ -13,7 +13,6 @@ import { UsersRepository } from '../repositories/UsersRepository';
 interface IUserCreate {
   username: string;
   email: string;
-  avatarUserUrl: string;
   password: string;
 }
 
@@ -69,12 +68,7 @@ class UsersService {
     };
   }
 
-  async create({
-    username,
-    email,
-    avatarUserUrl,
-    password,
-  }: IUserCreate): Promise<User> {
+  async create({ username, email, password }: IUserCreate): Promise<User> {
     const checkUserExists = await this.usersRepository.findOne({ email });
 
     if (checkUserExists) {
@@ -88,7 +82,6 @@ class UsersService {
     const user = this.usersRepository.create({
       username,
       email,
-      avata_user_url: avatarUserUrl,
       password_hash: hashPassword,
     });
 

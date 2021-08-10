@@ -5,6 +5,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm';
 
 import { Bookmark } from './Bookmark';
@@ -21,7 +23,7 @@ class User {
   email: string;
 
   @Column()
-  avata_user_url: string;
+  avatar: string;
 
   @Column()
   password_hash: string;
@@ -37,6 +39,12 @@ class User {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  avatarDefault(): void {
+    if (!this.avatar) this.avatar = 'default';
+  }
 }
 
 export { User };

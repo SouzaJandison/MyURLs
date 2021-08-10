@@ -8,16 +8,12 @@ import { userRender } from '../views/templates/userRender';
 class UsersController {
   async create(request: Request, response: Response): Promise<Response> {
     const { username, email, password } = request.body;
-    const avatarUser = request.file.filename;
-
-    const avatarUserUrl = process.env.APP_FILES + avatarUser;
 
     try {
       await schemaUserCreate.validate(
         {
           username,
           email,
-          avatarUserUrl,
           password,
         },
         { abortEarly: false },
@@ -31,7 +27,6 @@ class UsersController {
     const user = await usersService.create({
       username,
       email,
-      avatarUserUrl,
       password,
     });
 

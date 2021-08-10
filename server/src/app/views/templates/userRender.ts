@@ -3,7 +3,7 @@ import { User } from '../../models/User';
 interface IUserResponse {
   username: string;
   email: string;
-  avatarUserUrl: string;
+  avatar: string;
 }
 
 export const userRender = {
@@ -11,7 +11,7 @@ export const userRender = {
     return {
       username: user.username,
       email: user.email,
-      avatarUserUrl: user.avata_user_url,
+      avatar: user.avatar,
     };
   },
 };

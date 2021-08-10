@@ -25,7 +25,7 @@ export class CreateTableUsers1622501707261 implements MigrationInterface {
             isUnique: true,
           },
           {
-            name: 'avata_user_url',
+            name: 'avatar',
             type: 'varchar',
           },
           {
