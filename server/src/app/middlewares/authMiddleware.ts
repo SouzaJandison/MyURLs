@@ -11,7 +11,7 @@ interface ITokenPayload {
   id: string;
 }
 
-export function authMiddlewares(
+export function authMiddleware(
   request: Request,
   _: Response,
   next: NextFunction,

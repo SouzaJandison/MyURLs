@@ -5,7 +5,7 @@ import multer from 'multer';
 import { BookmarksController } from './app/controllers/BookmarksController';
 import { SessionController } from './app/controllers/SessionController';
 import { UsersController } from './app/controllers/UsersController';
-import { authMiddlewares } from './app/middlewares/authMiddlewares';
+import { authMiddleware } from './app/middlewares/authMiddleware';
 import { uploadsConfig } from './config/uploads';
 
 const routes = Router();
@@ -19,9 +19,9 @@ routes.post('/users', uploads.single('avatarUser'), usersController.create);
 routes.post('/users/session', sessionController.index);
 routes.get('/users/verify/email/:id', usersController.verifyEmail);
 
-routes.post('/bookmarks', authMiddlewares, bookmarksController.create);
-routes.get('/bookmarks', authMiddlewares, bookmarksController.show);
-routes.delete('/bookmarks/:id', authMiddlewares, bookmarksController.delete);
-routes.put('/bookmarks/:id', authMiddlewares, bookmarksController.update);
+routes.post('/bookmarks', authMiddleware, bookmarksController.create);
+routes.get('/bookmarks', authMiddleware, bookmarksController.show);
+routes.delete('/bookmarks/:id', authMiddleware, bookmarksController.delete);
+routes.put('/bookmarks/:id', authMiddleware, bookmarksController.update);
 
 export { routes };
