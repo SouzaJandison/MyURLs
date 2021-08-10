@@ -24,6 +24,7 @@ class SessionController {
     const userService = new UsersService();
 
     const { user, token } = await userService.index(email, password);
+
     return response.json({
       user: userRender.render(user),
       token,
