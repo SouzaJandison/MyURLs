@@ -5,9 +5,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  BeforeInsert,
-  BeforeUpdate,
 } from 'typeorm';
+
+import { v4 as uuid } from 'uuid';
 
 import { Bookmark } from './Bookmark';
 
@@ -40,10 +40,14 @@ class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @BeforeInsert()
-  @BeforeUpdate()
-  avatarDefault(): void {
-    if (!this.avatar) this.avatar = 'default';
+  constructor() {
+    if (!this.id) {
+      this.id = uuid();
+    }
+
+    if (!this.avatar) {
+      this.avatar = 'default';
+    }
   }
 }
 

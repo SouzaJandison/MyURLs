@@ -8,6 +8,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import { v4 as uuid } from 'uuid';
+
 import { User } from './User';
 
 @Entity('bookmarks')
@@ -36,6 +38,12 @@ class Bookmark {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  constructor() {
+    if (!this.id) {
+      this.id = uuid();
+    }
+  }
 }
 
 export { Bookmark };
