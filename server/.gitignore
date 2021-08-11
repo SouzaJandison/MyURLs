@@ -4,8 +4,3 @@ yarn.lock
 .vscode/
 
 .env
-
-tmp/*
-tmp/uploads/*
-!tmp/uploads
-!tmp/uploads/.gitkeep
