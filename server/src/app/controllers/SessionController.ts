@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 
 import { AppError } from '../../shared/errors/AppError';
 import { UsersService } from '../services/UsersService';
+import { userRender } from '../templates/userRender';
 import { schemaUserSession } from '../validations/userSchema';
-import { userRender } from '../views/templates/userRender';
 
 class SessionController {
   async index(request: Request, response: Response): Promise<Response> {

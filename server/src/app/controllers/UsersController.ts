@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 
 import { AppError } from '../../shared/errors/AppError';
 import { UsersService } from '../services/UsersService';
+import { userRender } from '../templates/userRender';
 import { schemaUserCreate } from '../validations/userSchema';
-import { userRender } from '../views/templates/userRender';
 
 class UsersController {
   async create(request: Request, response: Response): Promise<Response> {

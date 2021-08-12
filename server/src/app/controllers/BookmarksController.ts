@@ -2,11 +2,11 @@ import { Request, Response } from 'express';
 
 import { AppError } from '../../shared/errors/AppError';
 import { BookmarksService } from '../services/BookmarksService';
+import { bookmarkRender } from '../templates/bookmarkRender';
 import {
   schemaBookmarkCreate,
   schemaBookmarkUpdate,
 } from '../validations/bookmarkSchema';
-import { bookmarkRender } from '../views/templates/bookmarkRender';
 
 class BookmarksController {
   async create(request: Request, response: Response): Promise<Response> {
