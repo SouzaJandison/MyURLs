@@ -1,10 +1,18 @@
 import { getConnection } from 'typeorm';
 
+import jwt from 'jsonwebtoken';
 import Request from 'supertest';
 import { v4 as uuid } from 'uuid';
 
 import { app } from '../../app';
+import { authConfig } from '../../config/auth';
 import createConnection from '../../database';
+
+interface ITokenPayload {
+  iat: number;
+  exp: number;
+  id: string;
+}
 
 const MOCK_CREATE_USER = {
   username: 'any_user',
@@ -93,10 +101,10 @@ describe('SignUp Controllers', () => {
         password: 'any_password',
       });
 
-    delete response.body.id;
+    const { user } = response.body;
 
     expect(response.statusCode).toBe(201);
-    expect({ ...MOCK_CREATE_USER, avatar: 'default' }).toEqual(response.body);
+    expect({ ...MOCK_CREATE_USER, avatar: 'default' }).toEqual(user);
   });
 
   test('Should return 400 if email has already been registered', async () => {
@@ -129,7 +137,10 @@ describe('SignUp Controllers', () => {
       password: 'any_password_02',
     });
 
-    const { id } = user.body;
+    const { token } = user.body;
+    const decoded = jwt.verify(token, authConfig.jwt.secret);
+
+    const { id } = decoded as ITokenPayload;
 
     const response = await Request(app).get(`/users/verify/email/${id}`);
 
