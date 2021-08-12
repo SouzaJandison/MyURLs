@@ -31,6 +31,11 @@ interface ISessionResponse {
   token: string;
 }
 
+interface IUserResponse {
+  user: User;
+  token: string;
+}
+
 class UsersService {
   private usersRepository: Repository<User>;
 
@@ -68,7 +73,11 @@ class UsersService {
     };
   }
 
-  async create({ username, email, password }: IUserCreate): Promise<User> {
+  async create({
+    username,
+    email,
+    password,
+  }: IUserCreate): Promise<IUserResponse> {
     const checkUserExists = await this.usersRepository.findOne({ email });
 
     if (checkUserExists) {
@@ -87,7 +96,14 @@ class UsersService {
 
     await this.usersRepository.save(user);
 
-    return user;
+    const { secret } = authConfig.jwt;
+
+    const token = jwt.sign({ id: user.id }, secret);
+
+    return {
+      user,
+      token,
+    };
   }
 
   async sendVerificationEmail({

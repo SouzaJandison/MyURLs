@@ -24,7 +24,7 @@ class UsersController {
 
     const usersService = new UsersService();
 
-    const user = await usersService.create({
+    const { user, token } = await usersService.create({
       username,
       email,
       password,
@@ -36,7 +36,10 @@ class UsersController {
       id: user.id,
     });
 
-    return response.status(201).json(userRender.render(user));
+    return response.status(201).json({
+      user: userRender.render(user),
+      token,
+    });
   }
 
   async verifyEmail(request: Request, response: Response): Promise<Response> {
