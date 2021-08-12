@@ -30,12 +30,6 @@ class UsersController {
       password,
     });
 
-    await usersService.sendVerificationEmail({
-      username,
-      email,
-      id: user.id,
-    });
-
     return response.status(201).json({
       user: userRender.render(user),
       token,

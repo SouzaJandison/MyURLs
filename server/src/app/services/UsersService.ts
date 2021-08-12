@@ -94,6 +94,12 @@ class UsersService {
       password_hash: hashPassword,
     });
 
+    await this.sendVerificationEmail({
+      username: user.username,
+      email: user.email,
+      id: user.id,
+    });
+
     await this.usersRepository.save(user);
 
     const { secret } = authConfig.jwt;
