@@ -3,7 +3,7 @@ import { getCustomRepository, Repository } from 'typeorm';
 import jwt from 'jsonwebtoken';
 import * as path from 'path';
 
-import authConfig from '../../config/auth';
+import { authConfig } from '../../config/auth';
 import { AppError } from '../../shared/errors/AppError';
 import { User } from '../models/User';
 import { BCryptHash } from '../providers/BCryptHash';
