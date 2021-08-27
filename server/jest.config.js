@@ -6,4 +6,6 @@ module.exports = {
   testMatch: [
     "**/__tests__/**/*.spec.ts"
   ],
+  bail: true,
+  testEnvironment: "node"
 };
