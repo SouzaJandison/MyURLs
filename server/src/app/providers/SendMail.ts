@@ -1,6 +1,6 @@
 import fs from 'fs';
 import handlebars from 'handlebars';
-import nodemailer, { Transporter } from 'nodemailer';
+import nodemailer, { Transporter, SentMessageInfo } from 'nodemailer';
 
 import { AppError } from '../../shared/errors/AppError';
 
@@ -24,18 +24,20 @@ class SendMail {
     });
   }
 
-  async execute(variables: IVariables, path: string): Promise<void> {
+  async execute(variables: IVariables, path: string): Promise<SentMessageInfo> {
     const templateFileContent = fs.readFileSync(path).toString('utf-8');
     const mailTemplateParse = handlebars.compile(templateFileContent);
     const html = mailTemplateParse(variables);
 
     try {
-      await this.transporter.sendMail({
+      const result = await this.transporter.sendMail({
         from: process.env.MAILER_MAIL,
         to: variables.email,
         subject: variables.title,
         html,
       });
+
+      return result;
     } catch (error) {
       throw new AppError('Failed to send email!');
     }
