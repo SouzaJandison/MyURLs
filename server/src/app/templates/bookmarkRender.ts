@@ -4,6 +4,7 @@ interface IBookmarkResponse {
   id: string;
   name: string;
   url: string;
+  folder_id: string;
 }
 
 export const bookmarkRender = {
@@ -12,6 +13,7 @@ export const bookmarkRender = {
       id: bookmark.id,
       name: bookmark.name,
       url: bookmark.url,
+      folder_id: bookmark.folder_id,
     };
   },
 
