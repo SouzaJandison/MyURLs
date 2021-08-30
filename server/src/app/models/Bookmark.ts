@@ -10,6 +10,7 @@ import {
 
 import { v4 as uuid } from 'uuid';
 
+import { Folder } from './Folder';
 import { User } from './User';
 
 @Entity('bookmarks')
@@ -29,6 +30,10 @@ class Bookmark {
 
   @Column()
   user_id: string;
+
+  @ManyToOne(() => Folder, folder => folder.bookmarks)
+  @JoinColumn({ name: 'folder_id' })
+  folder: Folder;
 
   @Column()
   folder_id: string;
