@@ -10,7 +10,6 @@ import {
 import { v4 as uuid } from 'uuid';
 
 import { Bookmark } from './Bookmark';
-import { Folder } from './Folder';
 
 @Entity('users')
 class User {
@@ -34,9 +33,6 @@ class User {
 
   @OneToMany(() => Bookmark, bookmark => bookmark.user)
   bookmarks: Bookmark[];
-
-  @OneToMany(() => Folder, folder => folder.user)
-  folders: Folder[];
 
   @CreateDateColumn()
   created_at: Date;

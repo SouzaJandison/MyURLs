@@ -10,7 +10,7 @@ import {
 
 class BookmarksController {
   async create(request: Request, response: Response): Promise<Response> {
-    const { name, url, folder_id } = request.body;
+    const { name, url } = request.body;
     const { id } = request.user;
 
     try {
@@ -19,7 +19,6 @@ class BookmarksController {
           name,
           url,
           user_id: id,
-          folder_id,
         },
         { abortEarly: false },
       );
@@ -33,7 +32,6 @@ class BookmarksController {
       name,
       url,
       user_id: id,
-      folder_id,
     });
 
     return response.status(201).json(bookmarkRender.render(bookmark));

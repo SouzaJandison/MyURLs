@@ -24,11 +24,6 @@ export class CreateTableBookmarks1622655121230 implements MigrationInterface {
             type: 'uuid',
           },
           {
-            name: 'folder_id',
-            type: 'uuid',
-            isNullable: true,
-          },
-          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
