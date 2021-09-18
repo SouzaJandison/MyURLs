@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import { BookmarksController } from './app/controllers/BookmarksController';
 import { FoldersController } from './app/controllers/FoldersController';
+import { ReportController } from './app/controllers/ReportController';
 import { SessionController } from './app/controllers/SessionController';
 import { UsersController } from './app/controllers/UsersController';
 import { authMiddleware } from './app/middlewares/authMiddleware';
@@ -12,6 +13,7 @@ const usersController = new UsersController();
 const bookmarksController = new BookmarksController();
 const sessionController = new SessionController();
 const foldersController = new FoldersController();
+const reportController = new ReportController();
 
 routes.post('/users', usersController.create);
 routes.post('/users/session', sessionController.index);
@@ -24,5 +26,7 @@ routes.put('/bookmarks/:id', authMiddleware, bookmarksController.update);
 
 routes.post('/folders', authMiddleware, foldersController.create);
 routes.get('/folders', authMiddleware, foldersController.show);
+
+routes.get('/', authMiddleware, reportController.index);
 
 export { routes };
