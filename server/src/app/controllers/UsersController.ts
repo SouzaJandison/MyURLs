@@ -7,20 +7,13 @@ import { schemaUserCreate } from '../validations/userSchema';
 
 class UsersController {
   async create(request: Request, response: Response): Promise<Response> {
-    const { username, email, password } = request.body;
-
     try {
-      await schemaUserCreate.validate(
-        {
-          username,
-          email,
-          password,
-        },
-        { abortEarly: false },
-      );
+      await schemaUserCreate.validate(request.body, { abortEarly: false });
     } catch (error) {
       throw new AppError(error);
     }
+
+    const { username, email, password } = request.body;
 
     const usersService = new UsersService();
 

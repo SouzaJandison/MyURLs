@@ -7,19 +7,13 @@ import { schemaUserSession } from '../validations/userSchema';
 
 class SessionController {
   async index(request: Request, response: Response): Promise<Response> {
-    const { email, password } = request.body;
-
     try {
-      await schemaUserSession.validate(
-        {
-          email,
-          password,
-        },
-        { abortEarly: false },
-      );
+      await schemaUserSession.validate(request.body, { abortEarly: false });
     } catch (error) {
       throw new AppError(error);
     }
+
+    const { email, password } = request.body;
 
     const userService = new UsersService();
 
