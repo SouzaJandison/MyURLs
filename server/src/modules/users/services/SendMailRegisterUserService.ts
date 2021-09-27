@@ -2,6 +2,8 @@ import { resolve } from 'path';
 
 import { EtherealMailProvider } from '../../../shared/containers/providers/MailProvider/implementations/EtherealMailProvider.ts ';
 import { IMailProvider } from '../../../shared/containers/providers/MailProvider/models/IMailProvider';
+import { UserTokensRepository } from '../infra/typeorm/repositories/UserTokensRepository';
+import { IUserTokensRepository } from '../repositories/IUserTokensRepository';
 
 interface IRequest {
   name: string;
@@ -10,14 +12,19 @@ interface IRequest {
 }
 
 export class SendMailRegisterUserService {
+  private userTokensRepository: IUserTokensRepository;
+
   private readonly mailProvider: IMailProvider;
 
   constructor() {
+    this.userTokensRepository = new UserTokensRepository();
     this.mailProvider = new EtherealMailProvider();
   }
 
   async execute({ name, email, id }: IRequest): Promise<void> {
     const path = resolve(__dirname, '..', 'views', 'verifyMail.hbs');
+
+    const { token } = await this.userTokensRepository.generate(id);
 
     await this.mailProvider.sendMail({
       to: {
@@ -30,7 +37,7 @@ export class SendMailRegisterUserService {
         variables: {
           name,
           email,
-          id,
+          token,
           link: `${process.env.APP_WEB_URL}/users/verify/email`,
         },
       },
