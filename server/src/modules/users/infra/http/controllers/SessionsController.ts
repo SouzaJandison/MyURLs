@@ -18,8 +18,8 @@ export class SessionController {
     const authenticateUserService = new AuthenticateUserService();
 
     const { user, token } = await authenticateUserService.execute(
-      String(email),
-      String(password),
+      email,
+      password,
     );
 
     return response.json({

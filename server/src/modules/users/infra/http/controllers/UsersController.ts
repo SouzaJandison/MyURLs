@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 
 import { AppError } from '../../../../../shared/errors/AppError';
 import { CreateUserService } from '../../../services/CreateUserService';
+import { SendMailRegisterUserService } from '../../../services/SendMailRegisterUserService';
 import { userRender } from '../../../templates/userRender';
 import { schemaUserCreate } from '../../../validations/userSchema';
 
@@ -21,6 +22,14 @@ export class UsersController {
       username,
       email,
       password,
+    });
+
+    const sendMail = new SendMailRegisterUserService();
+
+    await sendMail.execute({
+      name: username,
+      email,
+      id: user.id,
     });
 
     return response.status(201).json(userRender.render(user));
