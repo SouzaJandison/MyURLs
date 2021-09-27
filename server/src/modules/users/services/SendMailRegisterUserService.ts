@@ -31,7 +31,7 @@ export class SendMailRegisterUserService {
           name,
           email,
           id,
-          link: process.env.URL_MAIL,
+          link: `${process.env.APP_WEB_URL}/users/verify/email`,
         },
       },
     });
