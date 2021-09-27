@@ -4,11 +4,13 @@ import { EmailConfirmationUserService } from '../../../services/EmailConfirmatio
 
 export class VerifyEmailController {
   async index(request: Request, response: Response): Promise<Response> {
-    const { id } = request.params;
+    console.log('passou');
+
+    const { token } = request.params;
 
     const emailConfirmation = new EmailConfirmationUserService();
 
-    const { message } = await emailConfirmation.execute(id);
+    const { message } = await emailConfirmation.execute(token);
 
     return response.json({ message });
   }

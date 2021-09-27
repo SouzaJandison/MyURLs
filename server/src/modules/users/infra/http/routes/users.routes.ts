@@ -12,6 +12,6 @@ const verifyEmailController = new VerifyEmailController();
 
 usersRoutes.post('/', usersController.create);
 usersRoutes.post('/session', sessionsController.index);
-usersRoutes.get('/verify/email/:id', verifyEmailController.index);
+usersRoutes.get('/verify/email/:token', verifyEmailController.index);
 
 export { usersRoutes };
