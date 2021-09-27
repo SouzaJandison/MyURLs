@@ -6,7 +6,9 @@ import { AppError } from '../../errors/AppError';
 import createConnection from '../typeorm';
 import { routes } from './routes';
 
-createConnection();
+createConnection().then(() =>
+  console.log('💥 successfully connected with database'),
+);
 
 const app = express();
 
