@@ -1,11 +1,9 @@
 import { Request, Response } from 'express';
 
-import { BCryptHashProvider } from '../../../../../shared/containers/providers/HashProvider/implementations/BCryptHashProvider';
 import { AppError } from '../../../../../shared/errors/AppError';
 import { CreateUserService } from '../../../services/CreateUserService';
 import { userRender } from '../../../templates/userRender';
 import { schemaUserCreate } from '../../../validations/userSchema';
-import { UsersRepository } from '../../typeorm/repositories/UsersRepository';
 
 export class UsersController {
   async create(request: Request, response: Response): Promise<Response> {
@@ -17,10 +15,7 @@ export class UsersController {
 
     const { username, email, password } = request.body;
 
-    const createUser = new CreateUserService(
-      new UsersRepository(),
-      new BCryptHashProvider(),
-    );
+    const createUser = new CreateUserService();
 
     const user = await createUser.execute({
       username,

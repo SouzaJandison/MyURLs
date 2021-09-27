@@ -1,21 +1,25 @@
 import { resolve } from 'path';
 
+import { BCryptHashProvider } from '../../../shared/containers/providers/HashProvider/implementations/BCryptHashProvider';
 import { IHashProvider } from '../../../shared/containers/providers/HashProvider/models/IHashProvider';
 import { EtherealMailProvider } from '../../../shared/containers/providers/MailProvider/implementations/EtherealMailProvider.ts ';
 import { IMailProvider } from '../../../shared/containers/providers/MailProvider/models/IMailProvider';
 import { AppError } from '../../../shared/errors/AppError';
 import { ICreateUserDTO } from '../dtos/ICreateUserDTO';
 import { User } from '../infra/typeorm/models/User';
+import { UsersRepository } from '../infra/typeorm/repositories/UsersRepository';
 import { IUsersRepository } from '../repositories/IUsersRepository';
 
 export class CreateUserService {
+  private usersRepository: IUsersRepository;
+
+  private bCryptHashProvider: IHashProvider;
+
   private readonly mailProvider: IMailProvider;
 
-  constructor(
-    private usersRepository: IUsersRepository,
-
-    private bCryptHashProvider: IHashProvider,
-  ) {
+  constructor() {
+    this.usersRepository = new UsersRepository();
+    this.bCryptHashProvider = new BCryptHashProvider();
     this.mailProvider = new EtherealMailProvider();
   }
 

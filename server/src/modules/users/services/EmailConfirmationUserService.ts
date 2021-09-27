@@ -1,4 +1,5 @@
 import { AppError } from '../../../shared/errors/AppError';
+import { UsersRepository } from '../infra/typeorm/repositories/UsersRepository';
 import { IUsersRepository } from '../repositories/IUsersRepository';
 
 interface IResponse {
@@ -6,7 +7,11 @@ interface IResponse {
 }
 
 export class EmailConfirmationUserService {
-  constructor(private usersRepository: IUsersRepository) {}
+  private usersRepository: IUsersRepository;
+
+  constructor() {
+    this.usersRepository = new UsersRepository();
+  }
 
   async execute(id: string): Promise<IResponse> {
     const user = await this.usersRepository.findById(id);
