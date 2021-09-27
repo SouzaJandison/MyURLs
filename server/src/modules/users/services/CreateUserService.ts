@@ -1,11 +1,11 @@
 import { resolve } from 'path';
 
+import { IHashProvider } from '../../../shared/containers/providers/HashProvider/models/IHashProvider';
 import { EtherealMailProvider } from '../../../shared/containers/providers/MailProvider/implementations/EtherealMailProvider.ts ';
 import { IMailProvider } from '../../../shared/containers/providers/MailProvider/models/IMailProvider';
 import { AppError } from '../../../shared/errors/AppError';
 import { ICreateUserDTO } from '../dtos/ICreateUserDTO';
 import { User } from '../infra/typeorm/models/User';
-import { IHashProvider } from '../providers/HashProvider/models/IHashProvider';
 import { IUsersRepository } from '../repositories/IUsersRepository';
 
 export class CreateUserService {

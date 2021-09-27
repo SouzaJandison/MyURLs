@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
+import { BCryptHashProvider } from '../../../../../shared/containers/providers/HashProvider/implementations/BCryptHashProvider';
 import { AppError } from '../../../../../shared/errors/AppError';
-import { BCryptHashProvider } from '../../../providers/HashProvider/implementations/BCryptHashProvider';
 import { CreateUserService } from '../../../services/CreateUserService';
 import { userRender } from '../../../templates/userRender';
 import { schemaUserCreate } from '../../../validations/userSchema';

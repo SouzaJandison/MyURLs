@@ -9,7 +9,7 @@ import {
 
 import { v4 as uuid } from 'uuid';
 
-import { Bookmark } from '../../../../Bookmarks/infra/typeorm/models/Bookmark';
+import { Bookmark } from '../../../../bookmarks/infra/typeorm/models/Bookmark';
 
 @Entity('users')
 export class User {

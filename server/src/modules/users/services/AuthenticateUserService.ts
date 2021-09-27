@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken';
 
 import { authConfig } from '../../../config/auth';
+import { IHashProvider } from '../../../shared/containers/providers/HashProvider/models/IHashProvider';
 import { AppError } from '../../../shared/errors/AppError';
 import { User } from '../infra/typeorm/models/User';
-import { IHashProvider } from '../providers/HashProvider/models/IHashProvider';
 import { IUsersRepository } from '../repositories/IUsersRepository';
 
 interface IResponse {
