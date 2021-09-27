@@ -1,8 +1,7 @@
-import jwt from 'jsonwebtoken';
-
-import { authConfig } from '../../../config/auth';
 import { BCryptHashProvider } from '../../../shared/containers/providers/HashProvider/implementations/BCryptHashProvider';
 import { IHashProvider } from '../../../shared/containers/providers/HashProvider/models/IHashProvider';
+import { TokenProvider } from '../../../shared/containers/providers/TokenProvider/implementations/TokenProvider';
+import { ITokenProvider } from '../../../shared/containers/providers/TokenProvider/models/ITokenProvider';
 import { AppError } from '../../../shared/errors/AppError';
 import { User } from '../infra/typeorm/models/User';
 import { UsersRepository } from '../infra/typeorm/repositories/UsersRepository';
@@ -18,9 +17,12 @@ export class AuthenticateUserService {
 
   private bCryptHashProvider: IHashProvider;
 
+  private tokenProvider: ITokenProvider;
+
   constructor() {
     this.usersRepository = new UsersRepository();
     this.bCryptHashProvider = new BCryptHashProvider();
+    this.tokenProvider = new TokenProvider();
   }
 
   async execute(email: string, password: string): Promise<IResponse> {
@@ -39,11 +41,7 @@ export class AuthenticateUserService {
       throw new AppError('Incorrect email/password combination.', 401);
     }
 
-    const { secret, expiresIn } = authConfig.jwt;
-
-    const token = jwt.sign({ id: user.id }, secret, {
-      expiresIn,
-    });
+    const token = this.tokenProvider.generateToken(user.id);
 
     return {
       user,

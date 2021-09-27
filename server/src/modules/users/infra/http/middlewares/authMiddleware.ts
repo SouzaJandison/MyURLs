@@ -1,15 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
-import jwt from 'jsonwebtoken';
-
-import { authConfig } from '../../../../../config/auth';
+import { TokenProvider } from '../../../../../shared/containers/providers/TokenProvider/implementations/TokenProvider';
 import { AppError } from '../../../../../shared/errors/AppError';
-
-interface ITokenPayload {
-  iat: number;
-  exp: number;
-  id: string;
-}
 
 export function authMiddleware(
   request: Request,
@@ -22,12 +14,10 @@ export function authMiddleware(
     throw new AppError('JWT token is missing', 401);
   }
 
-  const token = authorization.replace('Bearer', '').trim();
+  const tokenProvider = new TokenProvider();
 
   try {
-    const decoded = jwt.verify(token, authConfig.jwt.secret);
-
-    const { id } = decoded as ITokenPayload;
+    const id = tokenProvider.verifyToken(authorization);
 
     request.user = {
       id,
