@@ -32,7 +32,7 @@ export class AuthenticateUserService {
       throw new AppError('Incorrect email/password combination.', 401);
     }
 
-    const isValidPassword = this.bCryptHashProvider.compareHash(
+    const isValidPassword = await this.bCryptHashProvider.compareHash(
       password,
       user.password_hash,
     );
